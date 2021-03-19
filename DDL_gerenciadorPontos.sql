@@ -1,4 +1,5 @@
 /* modeloLogico_gerenciadorPontos: */
+CREATE SCHEMA gerenciador_pontos;
 USE gerenciador_pontos;
 CREATE TABLE users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
