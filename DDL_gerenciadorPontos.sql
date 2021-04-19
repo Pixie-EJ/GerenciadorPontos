@@ -4,11 +4,11 @@ CREATE TABLE users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     email VARCHAR(255) UNIQUE,
-    email_verified_at TIMESTAMP,
+    email_verified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     password VARCHAR(255),
     fk_enterprises_enterprise_id INTEGER,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP
 );
 
@@ -19,8 +19,8 @@ CREATE TABLE members (
     active BOOLEAN,
     role VARCHAR(80),
     fk_enterprises_enterprise_id INTEGER,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP
 );
 
@@ -29,8 +29,8 @@ CREATE TABLE categories (
     name VARCHAR(35),
     description VARCHAR(80),
     fk_enterprises_enterprise_id INTEGER,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP
 );
 
@@ -39,8 +39,8 @@ CREATE TABLE rules (
     name VARCHAR(30),
     point INTEGER,
     fk_enterprises_enterprise_id INTEGER,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP
 );
 
@@ -52,8 +52,8 @@ CREATE TABLE events (
     ended_at DATETIME,
     fk_categories_category_id INTEGER,
     fk_enterprises_enterprise_id INTEGER,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP
 );
 
@@ -74,8 +74,8 @@ CREATE TABLE enterprises (
     enterprise_id INTEGER AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     email VARCHAR(255),
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP
 );
 
@@ -83,8 +83,8 @@ CREATE TABLE teams (
     team_id INTEGER AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30),
     fk_enterprises_enterprise_id INTEGER,
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP
 );
 
@@ -100,7 +100,10 @@ CREATE TABLE seasons (
     description VARCHAR(255),
     started_at TIMESTAMP,
     ended_at TIMESTAMP,
-    fk_enterprises_enterprise_id INTEGER
+    fk_enterprises_enterprise_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    deleted_at TIMESTAMP
 );
 
 CREATE TABLE badges (
@@ -109,7 +112,10 @@ CREATE TABLE badges (
     name VARCHAR(80),
     description VARCHAR(255),
     fk_enterprises_enterprise_id INTEGER,
-    fk_seasons_season_id INTEGER
+    fk_seasons_season_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    deleted_at TIMESTAMP
 );
 
 CREATE TABLE badges_members (
