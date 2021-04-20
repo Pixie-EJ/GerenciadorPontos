@@ -11,12 +11,27 @@ DELIMITER $$
     END $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS prc_valida_espaco_tempo;
+DELIMITER $$
+	CREATE PROCEDURE `prc_valida_espaco_tempo`(started_at TIMESTAMP, ended_at TIMESTAMP)
+    BEGIN
+		IF fn_valida_espaco_tempo(started_at, ended_at) = 0
+			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Espaço tempo não é válido!';
+        END IF;
+    END $$
+DELIMITER ;
+
+
+-- sempre que um membro for alocado num evento deve ser consultado se ele está presente em um evento na mesma data
+
+
 DROP PROCEDURE IF EXISTS prc_add_badges;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_badges`(p_trophy BOOLEAN, p_name VARCHAR(50), p_description VARCHAR(255), p_enterprise_id INTEGER, p_season_id INTEGER)
 	BEGIN
 		INSERT INTO badges(trophy, name, description, fk_enterprises_enterprise_id, fk_seasons_season_id) 
         VALUES (p_trophy, p_name, p_description, p_enterprise_id, p_season_id);
+        COMMIT;
 	END $$
 DELIMITER ;
 
@@ -26,6 +41,7 @@ DELIMITER $$
 	BEGIN
 		INSERT INTO badges_members(fk_badges_members_badge_id, fk_badges_members_member_id)
         VALUES (p_badge_id, p_member_id);
+        COMMIT;
 	END $$
 DELIMITER ;
 
@@ -35,6 +51,7 @@ DELIMITER $$
     BEGIN	
         INSERT INTO categories(name, description, fk_enterprises_enterprise_id) 
         VALUES (p_name, p_description, p_interprise_id);
+        COMMIT;
     END $$
 DELIMITER ;
 
@@ -44,6 +61,7 @@ DELIMITER $$
     BEGIN	
         INSERT INTO interprises(name, email) 
         VALUES (p_name, p_email);
+        COMMIT;
     END $$
 DELIMITER ;
 
@@ -53,6 +71,7 @@ DELIMITER $$
     BEGIN	
         INSERT INTO events(name, description, started_at, ended_at, fk_categories_category_id, fk_enterprises_enterprise_id) 
         VALUES (p_name, p_description, p_started_at, p_ended_at, p_category_id, p_interprise_id);
+        COMMIT;
     END $$
 DELIMITER ;
 
@@ -62,6 +81,7 @@ DELIMITER $$
     BEGIN	
         INSERT INTO members(name, email, active, role, fk_enterprises_enterprise_id) 
         VALUES (p_name, p_email, p_active, p_role, p_interprise_id);
+        COMMIT;
     END $$
 DELIMITER ;
 
@@ -71,6 +91,7 @@ DELIMITER $$
     BEGIN	
         INSERT INTO events_members(fk_members_member_id , fk_events_event_id) 
         VALUES (p_member_id, p_event_id);
+        COMMIT;
     END $$
 DELIMITER ;
 
@@ -80,6 +101,7 @@ DELIMITER $$
     BEGIN	
         INSERT INTO rules(name, email, fk_enterprises_enterprise_id) 
         VALUES (p_name, p_email, p_interprise_id);
+        COMMIT;
     END $$
 DELIMITER ;
 
@@ -89,6 +111,7 @@ DELIMITER $$
     BEGIN	
         INSERT INTO rules_categories(name, fk_rules_rule_id, fk_categories_category_id) 
         VALUES (p_name, p_rule_id, p_category_id);
+        COMMIT;
     END $$
 DELIMITER ;
 
@@ -98,6 +121,7 @@ DELIMITER $$
 	BEGIN
 		INSERT INTO seasons ( name, description, started_at, ended_at, fk_enterprises_enterprise_id)
         VALUES ( p_name, p_description, p_started_at, p_ended_at, p_enterprise_id);
+        COMMIT;
 	END $$
 DELIMITER ;
 
@@ -107,6 +131,7 @@ DELIMITER $$
     BEGIN	
         INSERT INTO teams(name, fk_enterprises_enterprise_id) 
         VALUES (p_name, p_interprise_id);
+        COMMIT;
     END $$
 DELIMITER ;
 
@@ -116,6 +141,7 @@ DELIMITER $$
     BEGIN	
         INSERT INTO teams_members(fk_team_team_id, fk_members_member_id) 
         VALUES (p_team_id, p_member_id);
+        COMMIT;
     END $$
 DELIMITER ;
 
@@ -125,5 +151,6 @@ DELIMITER $$
     BEGIN	
         INSERT INTO users(name, email, password, fk_enterprises_enterprise_id) 
         VALUES (p_name_id, p_email, p_password, p_interprise_id);
+        COMMIT;
     END $$
 DELIMITER ;
