@@ -1,5 +1,5 @@
 /* modeloLogico_gerenciadorPontos: */
-use gerenciador_pontos;
+USE gerenciador_pontos;
 CREATE TABLE users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
@@ -52,6 +52,7 @@ CREATE TABLE events (
     ended_at DATETIME,
     fk_categories_category_id INTEGER,
     fk_enterprises_enterprise_id INTEGER,
+    fk_seasons_season_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP
@@ -178,6 +179,11 @@ ALTER TABLE events ADD CONSTRAINT FK_events_enterprise
     FOREIGN KEY (fk_enterprises_enterprise_id)
     REFERENCES enterprises (enterprise_id)
     ON DELETE CASCADE;
+ 
+ALTER TABLE events ADD CONSTRAINT FK_events_season
+    FOREIGN KEY (fk_seasons_season_id)
+    REFERENCES seasons (season_id)
+    ON DELETE CASCADE; 
  
 ALTER TABLE rules_categories ADD CONSTRAINT FK_rules_categories_rule
     FOREIGN KEY (fk_rules_rule_id)

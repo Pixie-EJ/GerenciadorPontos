@@ -21,9 +21,27 @@ DELIMITER $$
     END $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS prc_valida_mebro_evento;
+DELIMITER $$
+	CREATE PROCEDURE `prc_valida_mebro_evento`(old_envent_started_at TIMESTAMP, old_event_ended_at TIMESTAMP, new_envent_started_at TIMESTAMP, new_event_ended_at TIMESTAMP)
+    BEGIN
+		IF fn_presenca_membro_evento (old_envent_started_at, old_event_ended_at, new_envent_started_at, new_event_ended_at) = 0
+			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Esse tempo não é válido!';
+        END IF;
+    END $$
+DELIMITER ;
+
 
 -- sempre que um membro for alocado num evento deve ser consultado se ele está presente em um evento na mesma data
-
+DROP PROCEDURE IF EXISTS prc_valida_member_envent;
+DELIMITER $$
+	CREATE PROCEDURE `prc_valida_member_envent`(p_trophy BOOLEAN, p_name VARCHAR(50), p_description VARCHAR(255), p_enterprise_id INTEGER, p_season_id INTEGER)
+	BEGIN
+		IF fn_presenca_unica_evento(started_at, ended_at) = 0
+			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Espaço tempo não é válido!';
+        END IF;
+	END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS prc_add_badges;
 DELIMITER $$
@@ -59,7 +77,7 @@ DROP PROCEDURE IF EXISTS prc_add_enterprises;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_enterprises`(p_name VARCHAR(50), p_email VARCHAR(80))
     BEGIN	
-        INSERT INTO interprises(name, email) 
+        INSERT INTO enterprises(name, email) 
         VALUES (p_name, p_email);
         COMMIT;
     END $$
@@ -67,10 +85,10 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS prc_add_event;
 DELIMITER $$
-	CREATE PROCEDURE `prc_add_event`(p_name VARCHAR(50), p_description VARCHAR(300), p_started_at TIMESTAMP, p_ended_at TIMESTAMP, p_category_id INTEGER, p_interprise_id INTEGER)
+	CREATE PROCEDURE `prc_add_event`(p_name VARCHAR(50), p_description VARCHAR(300), p_started_at TIMESTAMP, p_ended_at TIMESTAMP, p_category_id INTEGER, p_interprise_id INTEGER, p_season_id INTEGER)
     BEGIN	
-        INSERT INTO events(name, description, started_at, ended_at, fk_categories_category_id, fk_enterprises_enterprise_id) 
-        VALUES (p_name, p_description, p_started_at, p_ended_at, p_category_id, p_interprise_id);
+        INSERT INTO events(name, description, started_at, ended_at, fk_categories_category_id, fk_enterprises_enterprise_id, fk_seasons_season_id) 
+        VALUES (p_name, p_description, p_started_at, p_ended_at, p_category_id, p_interprise_id, p_season_id);
         COMMIT;
     END $$
 DELIMITER ;
@@ -117,7 +135,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS prc_add_seasons;
 DELIMITER $$
-	CREATE PROCEDURE `prc_add_seasons`( p_name INTEGER, p_description VARCHAR(255), p_started_at TIMESTAMP, p_ended_at TIMESTAMP, p_enterprise_id INTEGER)
+	CREATE PROCEDURE `prc_add_seasons`( p_name VARCHAR(80), p_description VARCHAR(255), p_started_at TIMESTAMP, p_ended_at TIMESTAMP, p_enterprise_id INTEGER)
 	BEGIN
 		INSERT INTO seasons ( name, description, started_at, ended_at, fk_enterprises_enterprise_id)
         VALUES ( p_name, p_description, p_started_at, p_ended_at, p_enterprise_id);
