@@ -12,11 +12,11 @@ DELIMITER ;
 
 DROP TRIGGER IF EXISTS trg_upd_enterprise;
 DELIMITER $$
-CREATE TRIGGER trg_upd_enterprise AFTER UPDATE
+CREATE TRIGGER trg_upd_enterprise BEFORE UPDATE
 ON enterprises
 FOR EACH ROW
 BEGIN
-    UPDATE new.enterprises SET new.updated_at = SYSDATE();
+    SET new.updated_at = CURRENT_TIMESTAMP();
     CALL prc_valida_email (new.email);
 END $$
 DELIMITER ;
@@ -38,11 +38,11 @@ DELIMITER ;
 
 DROP TRIGGER IF EXISTS trg_upd_members;
 DELIMITER $$
-CREATE TRIGGER trg_upd_members AFTER UPDATE
+CREATE TRIGGER trg_upd_members BEFORE UPDATE
 ON members
 FOR EACH ROW
 BEGIN
-    UPDATE members SET new.updated_at = SYSDATE();
+    SET new.updated_at = CURRENT_TIMESTAMP();
     CALL prc_valida_email (new.email);
 END $$
 DELIMITER ;
@@ -62,11 +62,11 @@ DELIMITER ;
 
 DROP TRIGGER IF EXISTS trg_upd_members;
 DELIMITER $$
-CREATE TRIGGER trg_upd_members AFTER UPDATE
+CREATE TRIGGER trg_upd_members BEFORE UPDATE
 ON users
 FOR EACH ROW
 BEGIN
-    UPDATE users SET new.updated_at = SYSDATE();
+    SET new.updated_at = CURRENT_TIMESTAMP();
     CALL prc_valida_email (new.email);
 END $$
 DELIMITER ;
@@ -75,33 +75,33 @@ DELIMITER ;
 -- ------------- BADGES ------------
 DROP TRIGGER IF EXISTS trg_upd_badges;
 DELIMITER $$
-CREATE TRIGGER trg_upd_badges AFTER UPDATE
+CREATE TRIGGER trg_upd_badges BEFORE UPDATE
 ON badges
 FOR EACH ROW
 BEGIN
-    UPDATE badges SET new.updated_at = SYSDATE();
+    SET new.updated_at = CURRENT_TIMESTAMP();
 END $$
 DELIMITER ;
 
 -- ------------- CATEGORIES ------------
 DROP TRIGGER IF EXISTS trg_upd_categories;
 DELIMITER $$
-CREATE TRIGGER trg_upd_categories AFTER UPDATE
+CREATE TRIGGER trg_upd_categories BEFORE UPDATE
 ON categories
 FOR EACH ROW
 BEGIN
-    UPDATE categories SET new.updated_at = SYSDATE();
+    SET new.updated_at = CURRENT_TIMESTAMP();
 END $$
 DELIMITER ;
 
 -- ------------- BADGES ------------
 DROP TRIGGER IF EXISTS trg_upd_badges;
 DELIMITER $$
-CREATE TRIGGER trg_upd_badges AFTER UPDATE
+CREATE TRIGGER trg_upd_badges BEFORE UPDATE
 ON badges
 FOR EACH ROW
 BEGIN
-    UPDATE badges SET new.updated_at = SYSDATE();
+    SET new.updated_at = CURRENT_TIMESTAMP();
 END $$
 DELIMITER ;
 
@@ -118,22 +118,22 @@ DELIMITER ;
 
 DROP TRIGGER IF EXISTS trg_upd_events;
 DELIMITER $$
-CREATE TRIGGER trg_upd_events AFTER UPDATE
+CREATE TRIGGER trg_upd_events BEFORE UPDATE
 ON events
 FOR EACH ROW
 BEGIN
-    UPDATE events SET new.updated_at = SYSDATE();
+    SET new.updated_at = CURRENT_TIMESTAMP();
 END $$
 DELIMITER ;
 
 -- ------------- RULES ------------
 DROP TRIGGER IF EXISTS trg_upd_rules;
 DELIMITER $$
-CREATE TRIGGER trg_upd_rules AFTER UPDATE
+CREATE TRIGGER trg_upd_rules BEFORE UPDATE
 ON rules
 FOR EACH ROW
 BEGIN
-    UPDATE rules SET new.updated_at = SYSDATE();
+    SET new.updated_at = CURRENT_TIMESTAMP();
 END $$
 DELIMITER ;
 
@@ -150,21 +150,21 @@ DELIMITER ;
 
 DROP TRIGGER IF EXISTS trg_upd_seasons;
 DELIMITER $$
-CREATE TRIGGER trg_upd_seasons AFTER UPDATE
+CREATE TRIGGER trg_upd_seasons BEFORE UPDATE
 ON seasons
 FOR EACH ROW
 BEGIN
-    UPDATE seasons SET new.updated_at = SYSDATE();
+    SET new.updated_at = CURRENT_TIMESTAMP();
 END $$
 DELIMITER ;
 
 -- ------------- TEAMS ------------
 DROP TRIGGER IF EXISTS trg_upd_teams;
 DELIMITER $$
-CREATE TRIGGER trg_upd_teams AFTER UPDATE
+CREATE TRIGGER trg_upd_teams BEFORE UPDATE
 ON teams
 FOR EACH ROW
 BEGIN
-    UPDATE teams SET new.updated_at = SYSDATE();
+    SET new.updated_at = CURRENT_TIMESTAMP();
 END $$
 DELIMITER ;
