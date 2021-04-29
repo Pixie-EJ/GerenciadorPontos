@@ -27,36 +27,3 @@ DELIMITER $$
         RETURN return_date;
     END$$
 DELIMITER ;
-
--- UM MEMBRO NÂO PODE ESTAR PRESENTE EM DOIS EVENTOS SIMULTANEOS ( QUE AS DATA DE SOBREPONHAM)
-DROP FUNCTION IF EXISTS fn_presenca_membro_evento;
-DELIMITER $$
-	CREATE FUNCTION `fn_presenca_membro_evento` (old_envent_started_at TIMESTAMP, old_event_ended_at TIMESTAMP, new_envent_started_at TIMESTAMP, new_event_ended_at TIMESTAMP) RETURNS TINYINT
-    BEGIN
-		DECLARE return_event_member TINYINT DEFAULT 0;
-        
-        IF fn_valida_espaco_tempo(old_envent_started_at, old_event_ended_at) = 0 THEN
-			SET return_event_member = 0;
-            RETURN return_event_member;
-        END IF;
-        
-        IF fn_valida_espaco_tempo(new_envent_started_at, new_event_ended_at) = 0 THEN
-			SET return_event_member = 0;
-            RETURN return_event_member;
-        END IF;
-        
-        IF ( new_envent_started_at < old_envent_started_at ) THEN
-			IF( new_event_ended_at < old_envent_started_at) THEN
-				SET return_event_member = 1;
-            END IF;
-        END IF;
-        
-        IF ( new_envent_started_at > old_event_ended_at ) THEN
-			IF( new_event_ended_at > old_event_ended_at) THEN
-				SET return_event_member = 1;
-            END IF;
-        END IF;
-        
-        RETURN return_event_member;
-    END$$
-DELIMITER ;
