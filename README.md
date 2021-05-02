@@ -3,12 +3,23 @@
 # Pixie-Performance-Database
 Gerenciador de pontos pixie performance
 
-# Função
---//--
+## Função
+Pixie-Performance-Database é o banco de dados do sistema de pontos chamado "Pixie Performance"
 
 ## Organização do repositório
+Para todos os projetos da Pixie será utilizado uma organização de branches no git:
 
+#### --> Master
+   É onde será salvo o código finalizado, só existe uma e não pode enviar commits diretamente para esta branch
 
+#### --> Develop
+   Será o branch onde features e fixes serão enviadas por meio de pull requests depois de resolvido os conflitos, só existe uma e não pode enviar commits diretamente para esta branch
+
+#### --> Fix/nome_do_branch
+   Branch destinada a resolver bugs no código, podem existir várias, quando finalizado o bugfix, precisa criar uma pull request para "develop"
+
+#### --> Feature/nome_do_branch
+   Branch destinada a adicionar novas funções ou modificações no código, podem existir várias, quando finalizado a feature, precisa criar uma pull request para "develop"
 
 ## Organização da workfolder
 
