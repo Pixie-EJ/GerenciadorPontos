@@ -12,7 +12,7 @@ Para todos os projetos da Pixie será utilizado uma organização de branches no
 #### --> Master
    É onde será salvo o código finalizado, só existe uma e não pode enviar commits diretamente para esta branch
 
-#### --> Develop
+#### --> Development
    Será o branch onde features e fixes serão enviadas por meio de pull requests depois de resolvido os conflitos, só existe uma e não pode enviar commits diretamente para esta branch
 
 #### --> Fix/nome_do_branch
