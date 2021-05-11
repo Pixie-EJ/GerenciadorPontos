@@ -169,13 +169,13 @@ BEGIN
 END $$
 DELIMITER ;
 
-/*-- ------------- EVENTS MEMBERS  ------------
+-- ------------- EVENTS MEMBERS  ------------
 DROP TRIGGER IF EXISTS trg_ins_events_members;
 DELIMITER $$
 CREATE TRIGGER trg_ins_events_members AFTER INSERT
 ON events_members
 FOR EACH ROW
 BEGIN
-	-- CALL prc_valida_mebro_evento (new.event_member_id,new.event_id, new.member_id);
+	CALL prc_valida_membro_evento (new.event_member_id,new.event_id, new.member_id);
 END $$
-DELIMITER ;*/
+DELIMITER ;
