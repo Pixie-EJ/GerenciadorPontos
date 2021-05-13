@@ -35,28 +35,28 @@ DELIMITER $$
         DECLARE end_loop TINYINT DEFAULT 0;
         DECLARE how_many_events INTEGER;
 		DECLARE c_events_members CURSOR	FOR 
-			SELECT ev.started_at, ev.ended_at, ev.event_id
+			SELECT ev.started_at, ev.ended_at, ev.id
 			FROM events ev
 			JOIN seasons s
-			ON ev.season_id = s.season_id
+			ON ev.seasons_id = s.id
             JOIN events_members em
-            ON ev.event_id = em.event_id
+            ON ev.id = em.events_id
             JOIN members m
-            on m.member_id = em.member_id
-            where m.member_id = p_member_id;
+            on m.id = em.members_id
+            where m.id = p_member_id;
             OPEN c_events_members;
        
-		SELECT count(ev.event_id) 
+		SELECT count(ev.id) 
 			INTO how_many_events
             FROM events ev
 			JOIN seasons s
-			ON ev.season_id = s.season_id
-			WHERE ev.event_id = p_event_id;
+			ON ev.seasons_id = s.id
+			WHERE ev.id = p_event_id;
 		
         SELECT ev.started_at, ev.ended_at
             INTO new_event_started_at, new_event_ended_at
             FROM events ev
-            WHERE ev.event_id = p_event_id;
+            WHERE ev.id = p_event_id;
             
 		events_loop: LOOP
 			SET end_loop = end_loop + 1;
@@ -80,24 +80,12 @@ DELIMITER $$
     END $$
 DELIMITER ;
 
-/*
--- sempre que um membro for alocado num evento deve ser consultado se ele está presente em um evento na mesma data
-DROP PROCEDURE IF EXISTS prc_valida_member_envent;
-DELIMITER $$
-	CREATE PROCEDURE `prc_valida_member_envent`(p_trophy BOOLEAN, p_name VARCHAR(50), p_description VARCHAR(255), p_enterprise_id INTEGER, p_season_id INTEGER)
-	BEGIN
-		IF fn_presenca_unica_evento(started_at, ended_at) = 0
-			THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Espaço tempo não é válido!';
-        END IF;
-	END $$
-DELIMITER ;*/
-
 DROP PROCEDURE IF EXISTS prc_add_badges;
 DELIMITER $$
-	CREATE PROCEDURE `prc_add_badges`(p_trophy BOOLEAN, p_name VARCHAR(50), p_role VARCHAR(80), p_enterprise_id INTEGER, p_season_id INTEGER)
+	CREATE PROCEDURE `prc_add_badges`(p_trophy BOOLEAN, p_name VARCHAR(50), p_description VARCHAR(80), p_enterprise_id INTEGER, p_season_id INTEGER)
 	BEGIN
-		INSERT INTO badges(trophy, name, role, enterprise_id, season_id) 
-        VALUES (p_trophy, p_name, p_role, p_enterprise_id, p_season_id);
+		INSERT INTO badges(trophy, name, description, enterprises_id, seasons_id) 
+        VALUES (p_trophy, p_name, p_description, p_enterprise_id, p_season_id);
         COMMIT;
 	END $$
 DELIMITER ;
@@ -106,7 +94,7 @@ DROP PROCEDURE IF EXISTS prc_add_badges_members;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_badges_members`(p_badge_id INTEGER, p_member_id INTEGER)
 	BEGIN
-		INSERT INTO badges_members(badge_id, member_id)
+		INSERT INTO badges_members(badges_id, members_id)
         VALUES (p_badge_id, p_member_id);
         COMMIT;
 	END $$
@@ -116,7 +104,7 @@ DROP PROCEDURE IF EXISTS prc_add_category;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_category`(p_name VARCHAR(50), p_description VARCHAR(300), p_interprise_id INTEGER)
     BEGIN	
-        INSERT INTO categories(name, description, enterprise_id) 
+        INSERT INTO categories(name, description, enterprises_id) 
         VALUES (p_name, p_description, p_interprise_id);
         COMMIT;
     END $$
@@ -136,7 +124,7 @@ DROP PROCEDURE IF EXISTS prc_add_event;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_event`(p_name VARCHAR(50), p_description VARCHAR(300), p_started_at TIMESTAMP, p_ended_at TIMESTAMP, p_category_id INTEGER, p_interprise_id INTEGER, p_season_id INTEGER)
     BEGIN	
-        INSERT INTO events(name, description, started_at, ended_at, category_id, enterprise_id, season_id) 
+        INSERT INTO events(name, description, started_at, ended_at, categories_id, enterprises_id, seasons_id) 
         VALUES (p_name, p_description, p_started_at, p_ended_at, p_category_id, p_interprise_id, p_season_id);
         COMMIT;
     END $$
@@ -146,7 +134,7 @@ DROP PROCEDURE IF EXISTS prc_add_member;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_member`(p_name VARCHAR(50), p_email VARCHAR(50), p_active TINYINT, p_role VARCHAR(80), p_interprise_id INTEGER)
     BEGIN	
-        INSERT INTO members(name, email, active, role, enterprise_id) 
+        INSERT INTO members(name, email, active, role, enterprises_id) 
         VALUES (p_name, p_email, p_active, p_role, p_interprise_id);
         COMMIT;
     END $$
@@ -156,7 +144,7 @@ DROP PROCEDURE IF EXISTS prc_add_events_members;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_events_members`(p_member_id INTEGER, p_event_id INTEGER)
     BEGIN	
-        INSERT INTO events_members(member_id , event_id) 
+        INSERT INTO events_members(members_id , events_id) 
         VALUES (p_member_id, p_event_id);
         COMMIT;
     END $$
@@ -166,7 +154,7 @@ DROP PROCEDURE IF EXISTS prc_add_rule;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_rule`(p_name VARCHAR(50), p_point INTEGER, p_interprise_id INTEGER)
     BEGIN	
-        INSERT INTO rules(name, point, enterprise_id) 
+        INSERT INTO rules(name, point, enterprises_id) 
         VALUES (p_name, p_point, p_interprise_id);
         COMMIT;
     END $$
@@ -176,7 +164,7 @@ DROP PROCEDURE IF EXISTS prc_add_rules_categories;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_rules_categories`(p_active TINYINT, p_rule_id INTEGER, p_category_id INTEGER)
     BEGIN	
-        INSERT INTO rules_categories(active_, rule_id, category_id) 
+        INSERT INTO rules_categories(active_, rules_id, categories_id) 
         VALUES (p_active, p_rule_id, p_category_id);
         COMMIT;
     END $$
@@ -186,7 +174,7 @@ DROP PROCEDURE IF EXISTS prc_add_seasons;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_seasons`( p_name VARCHAR(80), p_description VARCHAR(255), p_started_at TIMESTAMP, p_ended_at TIMESTAMP, p_enterprise_id INTEGER)
 	BEGIN
-		INSERT INTO seasons ( name, description, started_at, ended_at, enterprise_id)
+		INSERT INTO seasons ( name, description, started_at, ended_at, enterprises_id)
         VALUES ( p_name, p_description, p_started_at, p_ended_at, p_enterprise_id);
         COMMIT;
 	END $$
@@ -196,7 +184,7 @@ DROP PROCEDURE IF EXISTS prc_add_teams;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_teams`(p_name VARCHAR(50), p_interprise_id INTEGER)
     BEGIN	
-        INSERT INTO teams(name, enterprise_id) 
+        INSERT INTO teams(name, enterprises_id) 
         VALUES (p_name, p_interprise_id);
         COMMIT;
     END $$
@@ -206,7 +194,7 @@ DROP PROCEDURE IF EXISTS prc_add_teams_members;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_teams_members`(p_team_id INTEGER, p_member_id INTEGER)
     BEGIN	
-        INSERT INTO teams_members(team_id, member_id) 
+        INSERT INTO teams_members(teams_id, members_id) 
         VALUES (p_team_id, p_member_id);
         COMMIT;
     END $$
@@ -216,7 +204,7 @@ DROP PROCEDURE IF EXISTS prc_add_users;
 DELIMITER $$
 	CREATE PROCEDURE `prc_add_users`(p_name_id VARCHAR(255), p_email VARCHAR(255), p_password VARCHAR(255), p_interprise_id INTEGER)
     BEGIN	
-        INSERT INTO users(name, email, password, enterprise_id) 
+        INSERT INTO users(name, email, password, enterprises_id) 
         VALUES (p_name_id, p_email, p_password, p_interprise_id);
         COMMIT;
     END $$
