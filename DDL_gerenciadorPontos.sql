@@ -50,9 +50,9 @@ CREATE TABLE events (
     description VARCHAR(255),
     started_at DATETIME,
     ended_at DATETIME,
-    categories_id INTEGER,
-    enterprises_id INTEGER,
-    seasons_id INTEGER,
+    categories_id INTEGER NULL DEFAULT NULL,
+    enterprises_id INTEGER NULL DEFAULT NULL,
+    seasons_id INTEGER NULL DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP NULL DEFAULT NULL
