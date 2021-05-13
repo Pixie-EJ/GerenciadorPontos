@@ -176,6 +176,6 @@ CREATE TRIGGER trg_ins_events_members AFTER INSERT
 ON events_members
 FOR EACH ROW
 BEGIN
-	CALL prc_valida_membro_evento (new.event_member_id,new.event_id, new.member_id);
+	CALL prc_valida_membro_evento (new.id,new.events_id, new.members_id);
 END $$
 DELIMITER ;
