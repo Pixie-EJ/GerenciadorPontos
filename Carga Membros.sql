@@ -1,0 +1,14 @@
+CALL prc_add_member('Carlos Eliézer', 'carloseliezer73@gmail.com', 1, 'developer', 1);
+CALL prc_add_member('Eduardo Saito', 'saitoeduardo2001@gmail.com', 1, 'developer', 1);
+CALL prc_add_member('Eduardo Povaz', 'edu.povaz@gmail.com', 1, 'developer', 1);
+CALL prc_add_member('Gabriel Dantas', 'gabri4k@gmail.com', 1, 'developer', 1);
+CALL prc_add_member('Geovanna Stadler', 'geovannastadler@gmail.com', 1, 'CMO', 1);
+CALL prc_add_member('João Vitor', 'jvk.rico@gmail.com', 4, 'CEO', 1);
+CALL prc_add_member('Júlio Cesar', 'juliopaesmoreira@hotmail.com', 1, 'developer', 1);
+CALL prc_add_member('Luan Halaiko', 'luhalaiko@gmail.com', 1, 'developer', 1);
+CALL prc_add_member('Lucas Pianaro ', 'lucasmuller26@icloud.com', 1, 'marketing analyst', 1);
+CALL prc_add_member('Otávio Pedroso', 'otavioaugustosantos59@gmail.com', 1, 'developer', 1);
+CALL prc_add_member('Pablo Scheiffer', '20007223@uepg.br', 1, 'administrative analyst', 1);
+CALL prc_add_member('Thiago Innani', 'thiagoinnani@gmail.com', 1, 'marketing analyst', 1);
+CALL prc_add_member('Thiago Teixeira', 'thiagoh.teixeira64@gmail.com', 1, 'CTO', 1);
+CALL prc_add_member('Vítor Toledo', 'vitorgomesdetoledo@hotmail.com', 1, 'marketing analyst', 1);
