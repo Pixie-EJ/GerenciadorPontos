@@ -37,7 +37,7 @@ CREATE TABLE categories (
 
 CREATE TABLE rules (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30),
+    name VARCHAR(60),
     point INTEGER,
     enterprises_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
