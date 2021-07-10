@@ -38,6 +38,7 @@ CREATE TABLE rules (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30),
     point INTEGER,
+    has_multiplier BOOLEAN,
     enterprises_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
