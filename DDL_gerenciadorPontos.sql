@@ -1,4 +1,4 @@
-/* modeloLogico_gerenciadorPontos: */
+CREATE database gerenciador_pontos;
 USE gerenciador_pontos;
 CREATE TABLE users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -126,13 +126,17 @@ CREATE TABLE badges_members (
     members_id INTEGER
 );
 CREATE TABLE scores (
-    score_id INTEGER PRIMARY KEY,
+    score_id INTEGER AUTO_INCREMENT PRIMARY KEY,
     multiplier_value INTEGER,
-    fk_members_member_id INTEGER,
-    fk_events_event_id INTEGER,
-    fk_categories_category_id INTEGER,
-    fk_rules_rule_id INTEGER
+    members_id INTEGER,
+    events_id INTEGER,
+    categories_id INTEGER,
+    rules_id INTEGER,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    deleted_at TIMESTAMP NULL DEFAULT NULL
 );
+
 
 
  
@@ -226,21 +230,24 @@ ALTER TABLE teams_members ADD CONSTRAINT FK_teams_members_member
     REFERENCES members (id);
     
 ALTER TABLE scores ADD CONSTRAINT FK_scores_2
-    FOREIGN KEY (fk_members_member_id)
-    REFERENCES members (member_id)
+    FOREIGN KEY (members_id)
+    REFERENCES members (id)
     ON DELETE CASCADE;
  
 ALTER TABLE scores ADD CONSTRAINT FK_scores_3
-    FOREIGN KEY (fk_events_event_id)
-    REFERENCES events (event_id)
+    FOREIGN KEY (events_id)
+    REFERENCES events (id)
     ON DELETE CASCADE;
  
 ALTER TABLE scores ADD CONSTRAINT FK_scores_4
-    FOREIGN KEY (fk_categories_category_id)
-    REFERENCES categories (category_id)
+    FOREIGN KEY (categories_id)
+    REFERENCES categories (id)
     ON DELETE CASCADE;
  
 ALTER TABLE scores ADD CONSTRAINT FK_scores_5
-    FOREIGN KEY (fk_rules_rule_id)
-    REFERENCES rules (rule_id)
+    FOREIGN KEY (rules_id)
+    REFERENCES rules (id)
     ON DELETE CASCADE;
+    
+    
+
