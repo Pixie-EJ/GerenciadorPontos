@@ -79,6 +79,7 @@ DELIMITER $$
         END IF;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS prc_add_enterprises;
 DELIMITER $$
 CREATE PROCEDURE `prc_add_enterprises`(p_name VARCHAR(50), p_email VARCHAR(80))
 BEGIN	

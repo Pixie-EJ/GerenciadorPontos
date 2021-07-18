@@ -1,0 +1,1 @@
+CALL prc_add_enterprises('Empresa Junior Pixie',  'pixie@gmail.com');
