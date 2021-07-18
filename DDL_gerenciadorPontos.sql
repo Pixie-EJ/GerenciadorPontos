@@ -1,5 +1,4 @@
-/* modeloLogico_gerenciadorPontos: */
-CREATE SCHEMA gerenciador_pontos;
+CREATE DATABASE gerenciador_pontos;
 USE gerenciador_pontos;
 CREATE TABLE users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -39,6 +38,7 @@ CREATE TABLE rules (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(60),
     point INTEGER,
+    has_multiplier BOOLEAN,
     enterprises_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
@@ -124,6 +124,18 @@ CREATE TABLE badges_members (
 	id INTEGER AUTO_INCREMENT PRIMARY KEY,
     badges_id INTEGER,
     members_id INTEGER
+);
+
+CREATE TABLE scores (
+    score_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    multiplier_value INTEGER,
+    members_id INTEGER,
+    events_id INTEGER,
+    categories_id INTEGER,
+    rules_id INTEGER,
+	  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    deleted_at TIMESTAMP NULL DEFAULT NULL
 );
  
 ALTER TABLE seasons ADD CONSTRAINT FK_season_enterprise
@@ -214,3 +226,23 @@ ALTER TABLE teams_members ADD CONSTRAINT FK_teams_members_team
 ALTER TABLE teams_members ADD CONSTRAINT FK_teams_members_member
     FOREIGN KEY (members_id)
     REFERENCES members (id);
+    
+ALTER TABLE scores ADD CONSTRAINT FK_scores_2
+    FOREIGN KEY (members_id)
+    REFERENCES members (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE scores ADD CONSTRAINT FK_scores_3
+    FOREIGN KEY (events_id)
+    REFERENCES events (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE scores ADD CONSTRAINT FK_scores_4
+    FOREIGN KEY (categories_id)
+    REFERENCES categories (id)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE scores ADD CONSTRAINT FK_scores_5
+    FOREIGN KEY (rules_id)
+    REFERENCES rules (id)
+    ON DELETE CASCADE;
