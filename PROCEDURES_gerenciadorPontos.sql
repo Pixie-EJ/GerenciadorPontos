@@ -77,11 +77,14 @@ DELIMITER $$
 		IF valid_member_event = 0 THEN
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Esse usuário já está alocado num evento no mesmo horário!';
         END IF;
-	CREATE PROCEDURE `prc_add_enterprises`(p_name VARCHAR(50), p_email VARCHAR(80))
-    BEGIN	
-        INSERT INTO enterprises(name, email)
-        VALUES (p_name, p_email);
-    END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE `prc_add_enterprises`(p_name VARCHAR(50), p_email VARCHAR(80))
+BEGIN	
+    INSERT INTO enterprises(name, email)
+    VALUES (p_name, p_email);
+END $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS prc_add_badges;
