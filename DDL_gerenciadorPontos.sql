@@ -1,4 +1,4 @@
-CREATE database gerenciador_pontos;
+CREATE DATABASE gerenciador_pontos;
 USE gerenciador_pontos;
 CREATE TABLE users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -36,7 +36,7 @@ CREATE TABLE categories (
 
 CREATE TABLE rules (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30),
+    name VARCHAR(60),
     point INTEGER,
     has_multiplier BOOLEAN,
     enterprises_id INTEGER,
@@ -125,6 +125,7 @@ CREATE TABLE badges_members (
     badges_id INTEGER,
     members_id INTEGER
 );
+
 CREATE TABLE scores (
     score_id INTEGER AUTO_INCREMENT PRIMARY KEY,
     multiplier_value INTEGER,
@@ -132,13 +133,10 @@ CREATE TABLE scores (
     events_id INTEGER,
     categories_id INTEGER,
     rules_id INTEGER,
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+	  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP NULL DEFAULT NULL
 );
-
-
-
  
 ALTER TABLE seasons ADD CONSTRAINT FK_season_enterprise
 	FOREIGN KEY (enterprises_id)
@@ -248,6 +246,3 @@ ALTER TABLE scores ADD CONSTRAINT FK_scores_5
     FOREIGN KEY (rules_id)
     REFERENCES rules (id)
     ON DELETE CASCADE;
-    
-    
-

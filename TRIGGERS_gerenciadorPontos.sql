@@ -1,11 +1,14 @@
 USE gerenciador_pontos;
--- ------------- ENTERPRISES ------------ 
-DROP TRIGGER IF EXISTS trg_ins_enterprise;
+
+
+-- --------------------------------------------- INTERPRISES --------------------------------------------------
 DELIMITER $$
 CREATE TRIGGER trg_ins_enterprise AFTER INSERT
 ON enterprises
 FOR EACH ROW
 BEGIN
+	
+    UPDATE new.enterprises SET new.updated_at = SYSDATE();
     CALL prc_valida_email (new.email);
 END $$
 DELIMITER ;
@@ -32,6 +35,8 @@ CREATE TRIGGER trg_ins_members AFTER INSERT
 ON members
 FOR EACH ROW
 BEGIN
+	
+    UPDATE new.members SET new.updated_at = SYSDATE();
     CALL prc_valida_email (new.email);
 END $$
 DELIMITER ;
