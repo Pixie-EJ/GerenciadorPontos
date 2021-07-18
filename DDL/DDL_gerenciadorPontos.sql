@@ -63,7 +63,10 @@ CREATE TABLE rules_categories (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     active_ BOOLEAN,
     rules_id INTEGER,
-    categories_id INTEGER
+    categories_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    deleted_at TIMESTAMP NULL DEFAULT NULL
 );
 
 CREATE TABLE events_members (
