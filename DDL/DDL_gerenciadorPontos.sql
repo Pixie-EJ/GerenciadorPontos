@@ -1,3 +1,5 @@
+DROP DATABASE gerenciador_pontos;
+
 CREATE DATABASE gerenciador_pontos;
 USE gerenciador_pontos;
 CREATE TABLE users (
