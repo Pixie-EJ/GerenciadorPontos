@@ -45,6 +45,7 @@ CREATE TABLE rules (
     deleted_at TIMESTAMP NULL DEFAULT NULL
 );
 
+
 CREATE TABLE events (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50),
@@ -63,8 +64,12 @@ CREATE TABLE rules_categories (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     active_ BOOLEAN,
     rules_id INTEGER,
-    categories_id INTEGER
+    categories_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    deleted_at TIMESTAMP NULL DEFAULT NULL
 );
+
 
 CREATE TABLE events_members (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -127,7 +132,7 @@ CREATE TABLE badges_members (
 );
 CREATE TABLE scores (
     score_id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    multiplier_value INTEGER,
+    multiplier_value INTEGER DEFAULT 1,
     members_id INTEGER,
     events_id INTEGER,
     categories_id INTEGER,
@@ -136,6 +141,7 @@ CREATE TABLE scores (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     deleted_at TIMESTAMP NULL DEFAULT NULL
 );
+
 
 
 
@@ -251,3 +257,9 @@ ALTER TABLE scores ADD CONSTRAINT FK_scores_5
     
     
 
+select * FROM scores;
+ 
+select * from events where id=36;
+
+
+DROP DATABASE gerenciador_pontos;
