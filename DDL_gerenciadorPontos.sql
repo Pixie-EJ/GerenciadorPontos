@@ -256,10 +256,3 @@ ALTER TABLE scores ADD CONSTRAINT FK_scores_5
     ON DELETE CASCADE;
     
     
-
-select * FROM scores;
- 
-select * from events where id=36;
-
-
-DROP DATABASE gerenciador_pontos;
