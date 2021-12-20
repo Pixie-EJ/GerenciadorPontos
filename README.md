@@ -6,6 +6,12 @@ Gerenciador de pontos pixie performance
 ## Função
 Pixie-Performance-Database é o banco de dados do sistema de pontos chamado "Pixie Performance"
 
+## Ordens dos arquivos para rodar
+1 - DDL
+2 - Functions
+3 - Procedures
+4 - Triggers
+
 ## Organização do repositório
 Para todos os projetos da Pixie será utilizado uma organização de branches no git:
 

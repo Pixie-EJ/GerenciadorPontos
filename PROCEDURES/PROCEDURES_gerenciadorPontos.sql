@@ -22,6 +22,7 @@ DELIMITER $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS prc_valida_membro_evento;
+
 DELIMITER $$
 	CREATE PROCEDURE `prc_valida_membro_evento`(p_event_member_id INTEGER, p_event_id INTEGER, p_member_id INTEGER)
     BEGIN
@@ -77,15 +78,17 @@ DELIMITER $$
 		IF valid_member_event = 0 THEN
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Esse usuário já está alocado num evento no mesmo horário!';
         END IF;
+	END $$
 DELIMITER ;
-
+        
 DROP PROCEDURE IF EXISTS prc_add_enterprises;
+
 DELIMITER $$
-CREATE PROCEDURE `prc_add_enterprises`(p_name VARCHAR(50), p_email VARCHAR(80))
-BEGIN	
-    INSERT INTO enterprises(name, email)
-    VALUES (p_name, p_email);
-END $$
+	CREATE PROCEDURE `prc_add_enterprises`(p_name VARCHAR(50), p_email VARCHAR(80))
+    BEGIN	
+		INSERT INTO enterprises(name, email)
+        VALUES (p_name, p_email);
+    END $$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS prc_add_badges;

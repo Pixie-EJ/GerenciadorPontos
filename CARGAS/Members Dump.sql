@@ -1,4 +1,3 @@
-CALL prc_add_member('Carlos Eliézer', 'carloseliezer73@gmail.com', 1, 'developer', 1);
 CALL prc_add_member('Eduardo Saito', 'saitoeduardo2001@gmail.com', 1, 'developer', 1);
 CALL prc_add_member('Eduardo Povaz', 'edu.povaz@gmail.com', 1, 'developer', 1);
 CALL prc_add_member('Gabriel Dantas', 'gabri4k@gmail.com', 1, 'developer', 1);
